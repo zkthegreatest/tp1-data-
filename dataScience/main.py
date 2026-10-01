@@ -23,24 +23,34 @@ PRAD_class = crossedtable[crossedtable['Class'] == 'PRAD']
 ########################turn into matrix########################
 BRCA_Matrix = BRCA_class.drop(columns=BRCA_class.columns[BRCA_class.columns.str.startswith('Unnamed')])
 BRCA_Matrix = BRCA_Matrix.drop(columns='Class')
+BRCA_Matrix_cut = BRCA_Matrix.iloc[:, :5]
 #BRCA_Matrix = np.array(BRCA_Matrix)
+#BRCA_Matrix_cut = np.array(BRCA_Matrix_cut)
 #print(np.array(BRCA_Matrix))
-#print(BRCA_Matrix)
+#print(BRCA_Matrix_cut)
 KIRC_Matrix =  KIRC_class.drop(columns=KIRC_class.columns[KIRC_class.columns.str.startswith('Unnamed')])
 KIRC_Matrix = KIRC_Matrix.drop(columns='Class')
+KIRC_Matrix_cut = KIRC_Matrix.iloc[:, :5]
 #KIRC_Matrix = np.array(KIRC_Matrix)
+#KIRC_Matrix_cut = np.array(KIRC_Matrix_cut)
 #print(KIRC_Matrix)
 COAD_Matrix = COAD_class.drop(columns=COAD_class.columns[COAD_class.columns.str.startswith('Unnamed')])
 COAD_Matrix = COAD_Matrix.drop(columns='Class')
+COAD_Matrix_cut = COAD_Matrix.iloc[:, :5]
 #COAD_Matrix = np.array(COAD_Matrix)
+#COAD_Matrix_cut = np.array(COAD_Matrix_cut)
 #print(COAD_Matrix)
 LUAD_Matrix = LUAD_class.drop(columns=LUAD_class.columns[LUAD_class.columns.str.startswith('Unnamed')])
 LUAD_Matrix = LUAD_Matrix.drop(columns='Class')
+LUAD_Matrix_cut = LUAD_Matrix.iloc[:, :5]
 #LUAD_Matrix = np.array(LUAD_Matrix)
+#LUAD_Matrix_cut = np.array(LUAD_Matrix_cut)
 #print(LUAD_Matrix)
 PRAD_Matrix = PRAD_class.drop(columns=PRAD_class.columns[PRAD_class.columns.str.startswith('Unnamed')])
 PRAD_Matrix = PRAD_Matrix.drop(columns='Class')
+PRAD_Matrix_cut = PRAD_Matrix.iloc[:, :5]
 #PRAD_Matrix = np.array(PRAD_Matrix)
+#PRAD_Matrix_cut = np.array(PRAD_Matrix_cut)
 #print(PRAD_Matrix)
 
 ########################CENTRE DES CLASSES######################
@@ -49,6 +59,11 @@ KIRC_Center = np.array(KIRC_Matrix.mean())
 COAD_Center = np.array(COAD_Matrix.mean())
 LUAD_Center = np.array(LUAD_Matrix.mean())
 PRAD_Center = np.array(PRAD_Matrix.mean())
+BRCA_Center_cut = np.array(BRCA_Matrix_cut.mean())
+KIRC_Center_cut = np.array(KIRC_Matrix_cut.mean())
+COAD_Center_cut = np.array(COAD_Matrix_cut.mean())
+LUAD_Center_cut = np.array(LUAD_Matrix_cut.mean())
+PRAD_Center_cut = np.array(PRAD_Matrix_cut.mean())
 #print(BRCA_Center)
 ################################################################
 ################cohésion avec la intra classe###################
@@ -120,13 +135,13 @@ tabDist.clear()
 ################################################################
 
 # ###################Mahalanobis Distance#########################
-#
+#utilisation des matrice coupé car l'ordinateur est pas assez puissant
 # ########################COVAVIANCE##############################
-Cov_BRCA = np.cov(np.array(BRCA_Matrix),rowvar=False)
-Cov_KIRC = np.cov(np.array(KIRC_Matrix),rowvar=False)
-Cov_COAD = np.cov(np.array(COAD_Matrix),rowvar=False)
-Cov_LUAD = np.cov(np.array(LUAD_Matrix),rowvar=False)
-Cov_PRAD = np.cov(np.array(PRAD_Matrix),rowvar=False)
+Cov_BRCA = np.cov(np.array(BRCA_Matrix_cut),rowvar=False)
+Cov_KIRC = np.cov(np.array(KIRC_Matrix_cut),rowvar=False)
+Cov_COAD = np.cov(np.array(COAD_Matrix_cut),rowvar=False)
+Cov_LUAD = np.cov(np.array(LUAD_Matrix_cut),rowvar=False)
+Cov_PRAD = np.cov(np.array(PRAD_Matrix_cut),rowvar=False)
 # print(1)
 # #######################INV COVARIANCE###########################
 Inv_cov_BRCA = np.linalg.pinv(Cov_BRCA)
@@ -136,15 +151,15 @@ Inv_cov_LUAD = np.linalg.pinv(Cov_LUAD)
 Inv_cov_PRAD = np.linalg.pinv(Cov_PRAD)
 #
 # # ###################COHÉSION CLASSE BRCA#########################
-for patient in np.array(BRCA_Matrix):
-      dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_BRCA)
+for patient in np.array(BRCA_Matrix_cut):
+      dist = distance.mahalanobis(patient, BRCA_Center_cut,Inv_cov_BRCA)
       tabDist.append(dist)
 
 BRCA_cohesion_m =max(tabDist)
 tabDist.clear()
 # # ################COHÉSION CLASSE KIRC############################
-for patient in np.array(KIRC_Matrix):
-     dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_KIRC)
+for patient in np.array(KIRC_Matrix_cut):
+     dist = distance.mahalanobis(patient, KIRC_Center_cut,Inv_cov_KIRC)
      tabDist.append(dist)
 #
 KIRC_cohesion_m =max(tabDist)
@@ -152,8 +167,8 @@ tabDist.clear()
 # # ################################################################
 # #
 # # ################COHÉSION CLASSE PRAD############################
-for patient in np.array(PRAD_Matrix):
-      dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+      dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_PRAD)
       tabDist.append(dist)
 #
 PRAD_cohesion_m =max(tabDist)
@@ -161,8 +176,8 @@ tabDist.clear()
 # # ################################################################
 # #
 # # ################COHÉSION CLASSE COAD############################
-for patient in np.array(COAD_Matrix):
-      dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_COAD)
+for patient in np.array(COAD_Matrix_cut):
+      dist = distance.mahalanobis(patient, COAD_Center_cut,Inv_cov_COAD)
       tabDist.append(dist)
 #
 COAD_cohesion_m =max(tabDist)
@@ -171,8 +186,8 @@ tabDist.clear()
 # #
 # #
 # # ################COHÉSION CLASSE LUAD############################
-for patient in np.array(LUAD_Matrix):
-      dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_LUAD)
+for patient in np.array(LUAD_Matrix_cut):
+      dist = distance.mahalanobis(patient, LUAD_Center_cut,Inv_cov_LUAD)
       tabDist.append(dist)
 #
 LUAD_cohesion_m =max(tabDist)
@@ -180,8 +195,8 @@ tabDist.clear()
 # # ################################################################
 # #
 # # ################COHÉSION CLASSE PRAD############################
-for patient in np.array(PRAD_Matrix):
-      dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+      dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_PRAD)
       tabDist.append(dist)
 #
 PRAD_cohesion_m =max(tabDist)
@@ -408,12 +423,12 @@ tabDistC2.clear()
 
 #################separation mahalanobis############
 ###################separation BRCA##############
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_BRCA )
+for patient in np.array(BRCA_Matrix_cut):
+    dist = distance.mahalanobis(patient, KIRC_Center_cut,Inv_cov_BRCA )
     tabDistC1.append(dist)
 
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_KIRC)
+for patient in np.array(KIRC_Matrix_cut):
+    dist = distance.mahalanobis(patient, BRCA_Center_cut,Inv_cov_KIRC)
     tabDistC2.append(dist)
 
 res_BRCA_KIRC_m = min(min(tabDistC1), min(tabDistC2))
@@ -423,12 +438,12 @@ tabDistC2.clear()
 ##########################################################
 
 #####################COAD###############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_BRCA)
+for patient in np.array(BRCA_Matrix_cut):
+    dist = distance.mahalanobis(patient, COAD_Center_cut,Inv_cov_BRCA)
     tabDistC1.append(dist)
 
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_COAD)
+for patient in np.array(COAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, BRCA_Center_cut,Inv_cov_COAD)
     tabDistC2.append(dist)
 
 res_BRCA_COAD_m = min(min(tabDistC1), min(tabDistC2))
@@ -438,12 +453,12 @@ tabDistC2.clear()
 #######################################################
 
 ######################Luad#############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_BRCA)
+for patient in np.array(BRCA_Matrix_cut):
+    dist = distance.mahalanobis(patient, LUAD_Center_cut,Inv_cov_BRCA)
     tabDistC1.append(dist)
 
-for patient in np.array(LUAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_LUAD)
+for patient in np.array(LUAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, BRCA_Center_cut,Inv_cov_LUAD)
     tabDistC2.append(dist)
 
 res_BRCA_Luad_m = min(min(tabDistC1), min(tabDistC2))
@@ -452,12 +467,12 @@ tabDistC2.clear()
 #######################################################
 
 #######################PRAD############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_BRCA)
+for patient in np.array(BRCA_Matrix_cut):
+    dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_BRCA)
     tabDistC1.append(dist)
 
-for patient in np.array(PRAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, BRCA_Center_cut,Inv_cov_PRAD)
     tabDistC2.append(dist)
 
 res_BRCA_Prad_m = min(min(tabDistC1), min(tabDistC2))
@@ -467,12 +482,12 @@ tabDistC2.clear()
 ##################Separation KIRC######################
 #####################coad############################
 
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_KIRC)
+for patient in np.array(KIRC_Matrix_cut):
+    dist = distance.mahalanobis(patient, COAD_Center_cut,Inv_cov_KIRC)
     tabDistC1.append(dist)
 
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_COAD)
+for patient in np.array(COAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, KIRC_Center_cut,Inv_cov_COAD)
     tabDistC2.append(dist)
 
 res_KIRC_COAD_m = min(min(tabDistC1), min(tabDistC2))
@@ -482,12 +497,12 @@ tabDistC2.clear()
 
 #####################LUAD############################
 
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_KIRC)
+for patient in np.array(KIRC_Matrix_cut):
+    dist = distance.mahalanobis(patient, LUAD_Center_cut,Inv_cov_KIRC)
     tabDistC1.append(dist)
 
-for patient in np.array(LUAD_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_LUAD)
+for patient in np.array(LUAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, KIRC_Center_cut,Inv_cov_LUAD)
     tabDistC2.append(dist)
 
 res_KIRC_LUAD_m = min(min(tabDistC1), min(tabDistC2))
@@ -496,12 +511,12 @@ tabDistC2.clear()
 #######################################################
 #####################PRAD############################
 
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_KIRC)
+for patient in np.array(KIRC_Matrix_cut):
+    dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_KIRC)
     tabDistC1.append(dist)
 
-for patient in np.array(PRAD_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, KIRC_Center_cut,Inv_cov_PRAD)
     tabDistC2.append(dist)
 
 res_KIRC_PRAD_m = min(min(tabDistC1), min(tabDistC2))
@@ -512,12 +527,12 @@ tabDistC2.clear()
 ######################separation COAD##################
 #####################LUAD############################
 
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_COAD)
+for patient in np.array(COAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, LUAD_Center_cut,Inv_cov_COAD)
     tabDistC1.append(dist)
 
-for patient in np.array(LUAD_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_LUAD)
+for patient in np.array(LUAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, COAD_Center_cut,Inv_cov_LUAD)
     tabDistC2.append(dist)
 
 res_COAD_LUAD_m = min(min(tabDistC1), min(tabDistC2))
@@ -527,12 +542,12 @@ tabDistC2.clear()
 
 #####################PRAD############################
 
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, PRAD_Center, Inv_cov_COAD)
+for patient in np.array(COAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, PRAD_Center_cut, Inv_cov_COAD)
     tabDistC1.append(dist)
 
-for patient in np.array(PRAD_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, COAD_Center_cut,Inv_cov_PRAD)
     tabDistC2.append(dist)
 
 res_COAD_PRAD_m= min(min(tabDistC1), min(tabDistC2))
@@ -542,12 +557,12 @@ tabDistC2.clear()
 
 #######################separation LUAD################
 ##########################Prad######################
-for patient in np.array(LUAD_Matrix):
-    dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_LUAD)
+for patient in np.array(LUAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_LUAD)
     tabDistC1.append(dist)
 
-for patient in np.array(PRAD_Matrix):
-    dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_PRAD)
+for patient in np.array(PRAD_Matrix_cut):
+    dist = distance.mahalanobis(patient, LUAD_Center_cut,Inv_cov_PRAD)
     tabDistC2.append(dist)
 
 res_LUAD_PRAD_m= min(min(tabDistC1), min(tabDistC2))
