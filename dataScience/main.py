@@ -6,7 +6,9 @@ from scipy.spatial.distance import euclidean
 from scipy.spatial import distance
 
 label  = pd.read_csv('labels.csv')
+print(label)
 data = pd.read_csv('data.csv')
+print(data)
 crossedtable = data.merge(label, left_index=True, right_index=True, how='inner')
 #print(crossedtable)
 BRCA_class = crossedtable[crossedtable['Class'] == 'BRCA']
@@ -81,6 +83,7 @@ for patient in np.array(BRCA_Matrix):
     tabDist.append(dist)
 
 BRCA_cohesion_eucludian =max(tabDist)
+print(BRCA_cohesion_eucludian , 'cohésion  eucllidian BRCA')
 tabDist.clear()
 ###############################################################
 
@@ -90,15 +93,7 @@ for patient in np.array(KIRC_Matrix):
     tabDist.append(dist)
 
 KIRC_cohesion_eucludian =max(tabDist)
-tabDist.clear()
-################################################################
-
-################COHÉSION CLASSE PRAD############################
-for patient in np.array(PRAD_Matrix):
-    dist = euclidean(patient, PRAD_Center)
-    tabDist.append(dist)
-
-PRAD_cohesion_eucludian =max(tabDist)
+print(KIRC_cohesion_eucludian, 'cohésion  eucllidian KIRC')
 tabDist.clear()
 ################################################################
 
@@ -108,6 +103,7 @@ for patient in np.array(COAD_Matrix):
     tabDist.append(dist)
 
 COAD_cohesion_eucludian =max(tabDist)
+print(COAD_cohesion_eucludian , 'cohésion  eucllidian coad')
 tabDist.clear()
 ################################################################
 
@@ -118,6 +114,7 @@ for patient in np.array(LUAD_Matrix):
     tabDist.append(dist)
 
 LUAD_cohesion_eucludian =max(tabDist)
+print(LUAD_cohesion_eucludian , 'cohésion  eucllidian luad')
 tabDist.clear()
 ################################################################
 
@@ -127,6 +124,7 @@ for patient in np.array(PRAD_Matrix):
     tabDist.append(dist)
 
 PRAD_cohesion_eucludian =max(tabDist)
+print(PRAD_cohesion_eucludian , 'cohésion  eucllidian prad')
 tabDist.clear()
 ################################################################
 
@@ -156,6 +154,7 @@ for patient in np.array(BRCA_Matrix_cut):
       tabDist.append(dist)
 
 BRCA_cohesion_m =max(tabDist)
+print(BRCA_cohesion_m , 'cohesion mahalanobis BRCA')
 tabDist.clear()
 # # ################COHÉSION CLASSE KIRC############################
 for patient in np.array(KIRC_Matrix_cut):
@@ -163,17 +162,10 @@ for patient in np.array(KIRC_Matrix_cut):
      tabDist.append(dist)
 #
 KIRC_cohesion_m =max(tabDist)
+print(KIRC_cohesion_m , 'cohesion mahalanobis KIRC')
 tabDist.clear()
 # # ################################################################
-# #
-# # ################COHÉSION CLASSE PRAD############################
-for patient in np.array(PRAD_Matrix_cut):
-      dist = distance.mahalanobis(patient, PRAD_Center_cut,Inv_cov_PRAD)
-      tabDist.append(dist)
-#
-PRAD_cohesion_m =max(tabDist)
-tabDist.clear()
-# # ################################################################
+
 # #
 # # ################COHÉSION CLASSE COAD############################
 for patient in np.array(COAD_Matrix_cut):
@@ -181,6 +173,7 @@ for patient in np.array(COAD_Matrix_cut):
       tabDist.append(dist)
 #
 COAD_cohesion_m =max(tabDist)
+print(COAD_cohesion_m , 'cohesion mahalanobis COAD')
 tabDist.clear()
 # # ################################################################
 # #
@@ -191,6 +184,7 @@ for patient in np.array(LUAD_Matrix_cut):
       tabDist.append(dist)
 #
 LUAD_cohesion_m =max(tabDist)
+print(LUAD_cohesion_m , 'cohesion mahalanobis LUAD')
 tabDist.clear()
 # # ################################################################
 # #
@@ -200,6 +194,7 @@ for patient in np.array(PRAD_Matrix_cut):
       tabDist.append(dist)
 #
 PRAD_cohesion_m =max(tabDist)
+print(PRAD_cohesion_m , 'cohesion mahalanobis PRAD')
 tabDist.clear()
 # # ############################################################
 
@@ -215,6 +210,7 @@ for patient in np.array(BRCA_Matrix):
     tabDist.append(dist)
 
 BRCA_cohesion_cosine =max(tabDist)
+print(BRCA_cohesion_cosine , 'cohesion cosine BRCA')
 tabDist.clear()
 ###############################################################
 
@@ -224,15 +220,7 @@ for patient in np.array(KIRC_Matrix):
     tabDist.append(dist)
 
 KIRC_cohesion_cosine =max(tabDist)
-tabDist.clear()
-################################################################
-
-################COHÉSION CLASSE PRAD############################
-for patient in np.array(PRAD_Matrix):
-    dist = distance.cosine(patient, PRAD_Center)
-    tabDist.append(dist)
-
-PRAD_cohesion_cosine =max(tabDist)
+print(KIRC_cohesion_cosine , 'cohesion cosine KIRC')
 tabDist.clear()
 ################################################################
 
@@ -242,6 +230,7 @@ for patient in np.array(COAD_Matrix):
     tabDist.append(dist)
 
 COAD_cohesion_cosine =max(tabDist)
+print(COAD_cohesion_cosine , 'cohesion cosine COAD')
 tabDist.clear()
 ################################################################
 
@@ -252,6 +241,7 @@ for patient in np.array(LUAD_Matrix):
     tabDist.append(dist)
 
 LUAD_cohesion_cosine =max(tabDist)
+print(LUAD_cohesion_cosine , 'cohesion cosine LUAD')
 tabDist.clear()
 ################################################################
 
@@ -261,6 +251,8 @@ for patient in np.array(PRAD_Matrix):
     tabDist.append(dist)
 
 PRAD_cohesion_cosine =max(tabDist)
+print(PRAD_cohesion_cosine , 'cohesion cosine PRAD')
+tabDist.clear()
 tabDist.clear()
 ###########################################################
 ###################cosine Distance Fin#####################
@@ -283,6 +275,7 @@ for patient in np.array(KIRC_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_KIRC_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_KIRC_euclidian ,'separation  BRCA-KIRC euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 
@@ -298,7 +291,7 @@ for patient in np.array(COAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_COAD_euclidian = min(min(tabDistC1), min(tabDistC2))
-
+print(res_BRCA_COAD_euclidian ,'separation  BRCA-COAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -313,6 +306,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_Luad_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Luad_euclidian ,'separation  BRCA-LUAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -327,6 +321,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_Prad_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Prad_euclidian ,'separation  BRCA-PRAD euclidian' )
 tabDistC1.clear()
 tabDistC2.clear()
 ########################################################
@@ -342,6 +337,7 @@ for patient in np.array(COAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_COAD_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_COAD_euclidian ,'separation KIRC-COAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -357,6 +353,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_LUAD_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_LUAD_euclidian ,'separation KIRC-LUAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -371,6 +368,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_PRAD_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_PRAD_euclidian ,'separation KIRC-PRAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -387,6 +385,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_COAD_LUAD_euclidian = min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_LUAD_euclidian ,'separation COAD-Luad euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -402,6 +401,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_COAD_PRAD_euclidian= min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_PRAD_euclidian ,'separation COAD-PRAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -417,6 +417,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_LUAD_PRAD_euclidian= min(min(tabDistC1), min(tabDistC2))
+print(res_LUAD_PRAD_euclidian ,'separation LUAD-PRAD euclidian')
 tabDistC1.clear()
 tabDistC2.clear()
 ###################################################
@@ -432,6 +433,7 @@ for patient in np.array(KIRC_Matrix_cut):
     tabDistC2.append(dist)
 
 res_BRCA_KIRC_m = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_KIRC_m ,'separation BRCA-Kirc mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 
@@ -447,7 +449,7 @@ for patient in np.array(COAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_BRCA_COAD_m = min(min(tabDistC1), min(tabDistC2))
-
+print(res_BRCA_COAD_m ,'separation BRCA-COAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -462,6 +464,7 @@ for patient in np.array(LUAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_BRCA_Luad_m = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Luad_m ,'separation BRCA-Luad mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -476,6 +479,7 @@ for patient in np.array(PRAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_BRCA_Prad_m = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Prad_m ,'separation BRCA-PRAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 ########################################################
@@ -491,6 +495,7 @@ for patient in np.array(COAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_KIRC_COAD_m = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_COAD_m ,'separation KIRC-COAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -506,6 +511,7 @@ for patient in np.array(LUAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_KIRC_LUAD_m = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_LUAD_m ,'separation KIRC-LUAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -520,6 +526,7 @@ for patient in np.array(PRAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_KIRC_PRAD_m = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_PRAD_m ,'separation KIRC-PRAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -536,6 +543,7 @@ for patient in np.array(LUAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_COAD_LUAD_m = min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_LUAD_m ,'separation COAD-LUAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -551,6 +559,7 @@ for patient in np.array(PRAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_COAD_PRAD_m= min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_PRAD_m ,'separation COAD-PRAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -566,6 +575,7 @@ for patient in np.array(PRAD_Matrix_cut):
     tabDistC2.append(dist)
 
 res_LUAD_PRAD_m= min(min(tabDistC1), min(tabDistC2))
+print(res_LUAD_PRAD_m ,'separation LUAD-PRAD mahalanobis')
 tabDistC1.clear()
 tabDistC2.clear()
 ###################################################
@@ -585,6 +595,7 @@ for patient in np.array(KIRC_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_KIRC_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_KIRC_cosine ,'separation BRCA-KIRC cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 
@@ -600,7 +611,7 @@ for patient in np.array(COAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_COAD_cosine = min(min(tabDistC1), min(tabDistC2))
-
+print(res_BRCA_COAD_cosine ,'separation BRCA-COAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -615,6 +626,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_Luad_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Luad_cosine ,'separation BRCA-LUAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -629,6 +641,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_BRCA_Prad_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_BRCA_Prad_cosine ,'separation BRCA-PRAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 ########################################################
@@ -644,6 +657,7 @@ for patient in np.array(COAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_COAD_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_COAD_cosine ,'separation KIRC-COAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -659,6 +673,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_LUAD_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_LUAD_cosine ,'separation KIRC-LUAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -673,6 +688,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_KIRC_PRAD_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_KIRC_PRAD_cosine ,'separation KIRC-PRAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -689,6 +705,7 @@ for patient in np.array(LUAD_Matrix):
     tabDistC2.append(dist)
 
 res_COAD_LUAD_cosine = min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_LUAD_cosine ,'separation COAD-LUAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -704,6 +721,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_COAD_PRAD_cosine= min(min(tabDistC1), min(tabDistC2))
+print(res_COAD_PRAD_cosine ,'separation COAD-PRAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 #######################################################
@@ -719,6 +737,7 @@ for patient in np.array(PRAD_Matrix):
     tabDistC2.append(dist)
 
 res_LUAD_PRAD_cosine= min(min(tabDistC1), min(tabDistC2))
+print(res_LUAD_PRAD_cosine ,'separation LUAD-PRAD cosine')
 tabDistC1.clear()
 tabDistC2.clear()
 ###################################################
@@ -730,44 +749,54 @@ tabDistC2.clear()
 
 ######################BRCA - KIRC###################
 overlap_BRCA_KIRC = ( BRCA_cohesion_eucludian + KIRC_cohesion_eucludian)/ (2* res_BRCA_KIRC_euclidian)
+print(overlap_BRCA_KIRC ,'overlap BRCA-KIRC euclidian')
 ####################################################
 
 ######################BRCA -COAD#####################
 overlap_BRCA_COAD = ( BRCA_cohesion_eucludian + COAD_cohesion_eucludian)/ (2* res_BRCA_COAD_euclidian)
+print(overlap_BRCA_COAD ,'overlap BRCA-COAD euclidian')
 #####################################################
 
 ######################BRCA -LUAD#####################
 overlap_BRCA_LUAD = ( BRCA_cohesion_eucludian + LUAD_cohesion_eucludian)/ (2* res_BRCA_Luad_euclidian)
+print(overlap_BRCA_LUAD ,'overlap BRCA-LUAD euclidian')
 #####################################################
 
 
 #########################BRCA -PRAD##################
 overlap_BRCA_PRAD = ( BRCA_cohesion_eucludian + PRAD_cohesion_eucludian)/ (2* res_BRCA_Prad_euclidian)
+print(overlap_BRCA_PRAD ,'overlap BRCA-PRAD euclidian')
 #####################################################
 
 #########################KIRC -COAD##################
 overlap_KIRC_COAD = ( KIRC_cohesion_eucludian + COAD_cohesion_eucludian)/ (2* res_KIRC_COAD_euclidian)
+print(overlap_KIRC_COAD ,'overlap KIRC-COAD euclidian')
 #####################################################
 
 ########################KIRC - LUAD##################
 overlap_KIRC_LUAD = ( KIRC_cohesion_eucludian + LUAD_cohesion_eucludian)/ (2* res_KIRC_LUAD_euclidian)
+print(overlap_KIRC_LUAD ,'overlap kirc-Luad euclidian')
 #####################################################
 
 #######################KIRC - PRAD###################
 overlap_KIRC_PRAD = ( KIRC_cohesion_eucludian + PRAD_cohesion_eucludian)/ (2* res_KIRC_PRAD_euclidian)
+print(overlap_KIRC_PRAD ,'overlap kirc-prad euclidian')
 #####################################################
 
 
 ####################COAD -LUAD######################
 overlap_COAD_LUAD = ( COAD_cohesion_eucludian + LUAD_cohesion_eucludian)/ (2* res_COAD_LUAD_euclidian)
+print(overlap_COAD_LUAD ,'overlap coad-luad euclidian')
 ####################################################
 
 ##################COAD-PRAD#########################
 overlap_COAD_PRAD = ( COAD_cohesion_eucludian + PRAD_cohesion_eucludian)/ (2* res_COAD_PRAD_euclidian)
+print(overlap_COAD_PRAD ,'overlap coad-prad euclidian')
 ###################################################
 
 ###########################LUAD-PRAD##############
 overlap_LUAD_PRAD = ( PRAD_cohesion_eucludian + LUAD_cohesion_eucludian)/ (2* res_LUAD_PRAD_euclidian)
+print(overlap_LUAD_PRAD ,'overlap luad-prad euclidian')
 #################################################
 
 
@@ -777,88 +806,112 @@ overlap_LUAD_PRAD = ( PRAD_cohesion_eucludian + LUAD_cohesion_eucludian)/ (2* re
 #########################mahalanobis#################
 ######################BRCA - KIRC###################
 overlap_BRCA_KIRC_m = ( BRCA_cohesion_m+ KIRC_cohesion_m)/ (2* res_BRCA_KIRC_m)
+print(overlap_BRCA_KIRC_m ,'overlap BRCA-KIRC mahalanobis')
 ####################################################
 
 ######################BRCA -COAD#####################
 overlap_BRCA_COAD_m = ( BRCA_cohesion_m+ COAD_cohesion_m)/ (2* res_BRCA_COAD_m)
+print(overlap_BRCA_COAD_m ,'overlap BRCA-COAD mahalanobis')
 #####################################################
 
 ######################BRCA -LUAD#####################
 overlap_BRCA_LUAD_m = ( BRCA_cohesion_m + LUAD_cohesion_m)/ (2* res_BRCA_Luad_m)
+print(overlap_BRCA_LUAD_m ,'overlap BRCA-LUAD mahalanobis')
 #####################################################
 
 
 #########################BRCA -PRAD##################
 overlap_BRCA_PRAD_m = ( BRCA_cohesion_m + PRAD_cohesion_m)/ (2* res_BRCA_Prad_m)
+print(overlap_BRCA_PRAD_m ,'overlap BRCA-PRAD mahalanobis')
 #####################################################
 
 #########################KIRC -COAD##################
 overlap_KIRC_COAD_m = ( KIRC_cohesion_m + COAD_cohesion_m)/ (2* res_KIRC_COAD_m)
+print(overlap_KIRC_COAD_m ,'overlap KIRC-COAD mahalanobis')
 #####################################################
 
 ########################KIRC - LUAD##################
 overlap_KIRC_LUAD_m = ( KIRC_cohesion_m + LUAD_cohesion_m)/ (2* res_KIRC_LUAD_m)
+print(overlap_KIRC_LUAD_m ,'overlap KIRC-LUAD mahalanobis')
 #####################################################
 
 #######################KIRC - PRAD###################
 overlap_KIRC_PRAD_m = ( KIRC_cohesion_m + PRAD_cohesion_m)/ (2* res_KIRC_PRAD_m)
+print(overlap_KIRC_PRAD_m ,'overlap KIRC-PRAD mahalanobis')
 #####################################################
 
 
 ####################COAD -LUAD######################
 overlap_COAD_LUAD_m = ( COAD_cohesion_m + LUAD_cohesion_m)/ (2* res_COAD_LUAD_m)
+print(overlap_COAD_LUAD_m ,'overlap COAD-LUAD mahalanobis')
 ####################################################
 
 ##################COAD-PRAD#########################
 overlap_COAD_PRAD_m = ( COAD_cohesion_m + PRAD_cohesion_m)/ (2* res_COAD_PRAD_m)
+print(overlap_COAD_PRAD_m ,'overlap COAD-PRAD mahalanobis')
 ###################################################
 
 ###########################LUAD-PRAD##############
 overlap_LUAD_PRAD_m = ( PRAD_cohesion_m + LUAD_cohesion_m)/ (2* res_LUAD_PRAD_m)
+print(overlap_LUAD_PRAD_m ,'overlap LUAD-PRAD mahalanobis')
 #################################################
-####################a faire #########################
+
 ######################################################
 
 #######################cosinus######################
 ######################BRCA - KIRC###################
 overlap_BRCA_KIRC_cosine = ( BRCA_cohesion_cosine + KIRC_cohesion_cosine)/ (2* res_BRCA_KIRC_cosine)
+print(overlap_BRCA_KIRC_cosine ,'overlap BRCA-KIRC cosine')
 ####################################################
 
 ######################BRCA -COAD#####################
 overlap_BRCA_COAD_cosine = ( BRCA_cohesion_cosine+ COAD_cohesion_cosine)/ (2* res_BRCA_COAD_cosine)
+print(overlap_BRCA_COAD_cosine ,'overlap BRCA-COAD cosine')
 #####################################################
 
 ######################BRCA -LUAD#####################
 overlap_BRCA_LUAD_cosine = ( BRCA_cohesion_cosine + LUAD_cohesion_cosine)/ (2* res_BRCA_Luad_cosine)
+print(overlap_BRCA_LUAD_cosine ,'overlap BRCA-LUAD cosine')
 #####################################################
 
 
 #########################BRCA -PRAD##################
 overlap_BRCA_PRAD_cosine = ( BRCA_cohesion_cosine + PRAD_cohesion_cosine)/ (2* res_BRCA_Prad_cosine)
+print(overlap_BRCA_PRAD_cosine ,'overlap BRCA-PRAD cosine')
 #####################################################
 
 #########################KIRC -COAD##################
 overlap_KIRC_COAD_cosine = ( KIRC_cohesion_cosine + COAD_cohesion_cosine)/ (2* res_KIRC_COAD_cosine)
+print(overlap_KIRC_COAD_cosine ,'overlap KIRC-COAD cosine')
 #####################################################
 
 ########################KIRC - LUAD##################
 overlap_KIRC_LUAD_cosine = ( KIRC_cohesion_cosine + LUAD_cohesion_cosine)/ (2* res_KIRC_LUAD_cosine)
+print(overlap_KIRC_LUAD_cosine ,'overlap KIrc-LUAD cosine')
 #####################################################
 
 #######################KIRC - PRAD###################
 overlap_KIRC_PRAD_cosine = ( KIRC_cohesion_cosine + PRAD_cohesion_cosine)/ (2* res_KIRC_PRAD_cosine)
+print(overlap_KIRC_PRAD_cosine ,'overlap KIRC-PRAD cosine')
 #####################################################
 
 
 ####################COAD -LUAD######################
 overlap_COAD_LUAD_cosine = ( COAD_cohesion_cosine + LUAD_cohesion_cosine)/ (2* res_COAD_LUAD_cosine)
+print(overlap_COAD_LUAD_cosine ,'overlap COAD -LUAD cosine')
 ####################################################
 
 ##################COAD-PRAD#########################
 overlap_COAD_PRAD_cosine = ( COAD_cohesion_cosine + PRAD_cohesion_cosine)/ (2* res_COAD_PRAD_cosine)
+print(overlap_COAD_PRAD_cosine ,'overlap prad-PRAD cosine')
 ###################################################
 
 ###########################LUAD-PRAD##############
 overlap_LUAD_PRAD_cosine = ( PRAD_cohesion_cosine + LUAD_cohesion_cosine)/ (2* res_LUAD_PRAD_cosine)
+print(overlap_LUAD_PRAD_cosine ,'overlap LUAD-PRAD cosine')
 #################################################
+
+
+def BienSepare(val):
+    return val<1
 
