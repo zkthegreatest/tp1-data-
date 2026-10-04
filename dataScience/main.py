@@ -424,93 +424,22 @@ tabDistC1.clear()
 tabDistC2.clear()
 ###################################################
 
-############### 2. separation mahalanobis############
+############### 2. separation mahalanobis ############
 ###################separation BRCA##############
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_BRCA )
-    tabDistC1.append(dist)
-
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_KIRC)
-    tabDistC2.append(dist)
-
-res_BRCA_KIRC_m = min(min(tabDistC1), min(tabDistC2))
-tabDistC1.clear()
-tabDistC2.clear()
-
-##########################################################
-
-#####################COAD###############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_BRCA)
-    tabDistC1.append(dist)
-
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_COAD)
-    tabDistC2.append(dist)
-
-res_BRCA_COAD_m = min(min(tabDistC1), min(tabDistC2))
-
-tabDistC1.clear()
-tabDistC2.clear()
-#######################################################
-
-######################Luad#############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, LUAD_Center,Inv_cov_BRCA)
-    tabDistC1.append(dist)
-
-for patient in np.array(LUAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_LUAD)
-    tabDistC2.append(dist)
-
-res_BRCA_Luad_m = min(min(tabDistC1), min(tabDistC2))
-tabDistC1.clear()
-tabDistC2.clear()
-#######################################################
-
-#######################PRAD############################
-for patient in np.array(BRCA_Matrix):
-    dist = distance.mahalanobis(patient, PRAD_Center,Inv_cov_BRCA)
-    tabDistC1.append(dist)
-
-for patient in np.array(PRAD_Matrix):
-    dist = distance.mahalanobis(patient, BRCA_Center,Inv_cov_PRAD)
-    tabDistC2.append(dist)
-
-res_BRCA_Prad_m = min(min(tabDistC1), min(tabDistC2))
-tabDistC1.clear()
-tabDistC2.clear()
-########################################################
-##################Separation KIRC######################
-#####################coad############################
-
-for patient in np.array(KIRC_Matrix):
-    dist = distance.mahalanobis(patient, COAD_Center,Inv_cov_KIRC)
-    tabDistC1.append(dist)
-
-for patient in np.array(COAD_Matrix):
-    dist = distance.mahalanobis(patient, KIRC_Center,Inv_cov_COAD)
-    tabDistC2.append(dist)
-
-res_KIRC_COAD_m = min(min(tabDistC1), min(tabDistC2))
-tabDistC1.clear()
-tabDistC2.clear()
-#######################################################
 
 def distance_inter_mahalanobis(
     matrice_1, centre_1, inv_cov_1,
     matrice_2, centre_2, inv_cov_2
 ):
     # Patients de C1 vers le centre de C2 :
-    # covariance de la classe cible C2.
+    # covariance utilisée est celle de la classe cible C2.
     minimum_1_vers_2 = min(
         distance.mahalanobis(patient, centre_2, inv_cov_2)
         for patient in matrice_1
     )
 
     # Patients de C2 vers le centre de C1 :
-    # covariance de la classe cible C1.
+    # covariance utilisée est celle de la classe cible C1.
     minimum_2_vers_1 = min(
         distance.mahalanobis(patient, centre_1, inv_cov_1)
         for patient in matrice_2
@@ -909,7 +838,7 @@ classes_observees = sorted(label["Class"].unique())
 
 ######## a) choix d'une paire globale de variables parmi
 # les 20 gènes ayant les plus grandes variances sur l’ensemble des patients
-gene_x = "gene_439"
+gene_x = "gene_9175"
 gene_y = "gene_9176"
 
 donnees_numeric = crossedtable[[gene_x, gene_y, "Class"]].copy()
