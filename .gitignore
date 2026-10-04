@@ -1,0 +1,12 @@
+# Jeu de données local trop volumineux pour GitHub
+data.csv
+dataScience/data.csv
+
+# Environnement Python local
+.venv/
+dataScience/.venv/
+
+# Réglages locaux de PyCharm
+.idea/
+dataScience/.idea/
+*.iml
